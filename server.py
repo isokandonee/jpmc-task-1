@@ -12,7 +12,7 @@
 #
 #  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
 #  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#  FITNESS FOR A PARTICULAR PURPOSE AND NON INFRINGEMENT. IN NO EVENT SHALL THE
 #  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 #  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 #  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
@@ -174,7 +174,7 @@ class ThreadedHTTPServer(ThreadingMixIn, http.server.HTTPServer):
     allow_reuse_address = True
 
     def shutdown(self):
-        """ Override MRO to shutdown properly. """
+        """ Override MRO to shut down properly. """
         self.socket.close()
         http.server.HTTPServer.shutdown(self)
 
@@ -205,7 +205,7 @@ def get(req_handler, routes):
     """ Map a request to the appropriate route of a routes instance. """
     for name, handler in routes.__class__.__dict__.items():
         if hasattr(handler, "__route__"):
-            if None != re.search(handler.__route__, req_handler.path):
+            if re.search(handler.__route__, req_handler.path) is not None:
                 req_handler.send_response(200)
                 req_handler.send_header('Content-Type', 'application/json')
                 req_handler.send_header('Access-Control-Allow-Origin', '*')
